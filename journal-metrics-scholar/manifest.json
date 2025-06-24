@@ -1,0 +1,57 @@
+{
+  "manifest_version": 3,
+  "name": "SJR Journal Rankings by Dr. Mohammed Tawfik",
+  "version": "1.0.0",
+  "description": "Display SCImago Journal Rankings (SJR) quartiles and impact metrics directly in Google Scholar search results",
+  "author": "Dr. Mohammed Tawfik <kmkhol01@gmail.com>",
+  
+  "permissions": [
+    "activeTab",
+    "storage"
+  ],
+  
+  "host_permissions": [
+    "https://scholar.google.com/*",
+    "https://www.scimagojr.com/*",
+    "https://api.crossref.org/*",
+    "https://*.scimagojr.com/*"
+  ],
+  
+  "content_scripts": [
+    {
+      "matches": ["https://scholar.google.com/*"],
+      "js": ["content.js"],
+      "css": ["styles.css"],
+      "run_at": "document_end"
+    }
+  ],
+  
+  "background": {
+    "service_worker": "background.js"
+  },
+  
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "SJR Journal Rankings",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  
+  "web_accessible_resources": [
+    {
+      "resources": ["icons/*"],
+      "matches": ["https://scholar.google.com/*"]
+    }
+  ]
+}

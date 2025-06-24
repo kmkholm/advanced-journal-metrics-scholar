@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SJR Journal Rankings</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      width: 320px;
+      min-height: 400px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: #333;
+    }
+
+    .header {
+      background: white;
+      padding: 16px;
+      text-align: center;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .header h1 {
+      font-size: 18px;
+      font-weight: 600;
+      color: #2d3748;
+      margin-bottom: 4px;
+    }
+
+    .header p {
+      font-size: 12px;
+      color: #718096;
+    }
+
+    .author {
+      font-size: 10px;
+      color: #a0aec0;
+      margin-top: 8px;
+    }
+
+    .content {
+      padding: 16px;
+      background: white;
+    }
+
+    .search-section {
+      margin-bottom: 20px;
+    }
+
+    .search-box {
+      position: relative;
+      margin-bottom: 12px;
+    }
+
+    .search-input {
+      width: 100%;
+      padding: 10px 12px;
+      border: 2px solid #e2e8f0;
+      border-radius: 6px;
+      font-size: 14px;
+      transition: border-color 0.2s;
+    }
+
+    .search-input:focus {
+      outline: none;
+      border-color: #3182ce;
+    }
+
+    .search-btn {
+      background: #3182ce;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 4px;
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .search-btn:hover {
+      background: #2c5aa0;
+    }
+
+    .stats-section {
+      margin-bottom: 20px;
+    }
+
+    .section-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: #2d3748;
+      margin-bottom: 8px;
+    }
+
+    .quartile-stats {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 4px;
+      margin-bottom: 12px;
+    }
+
+    .quartile-item {
+      text-align: center;
+      padding: 8px 4px;
+      border-radius: 4px;
+      font-size: 10px;
+      font-weight: 600;
+      color: white;
+    }
+
+    .q1 { background: #48bb78; }
+    .q2 { background: #ed8936; }
+    .q3 { background: #f6ad55; }
+    .q4 { background: #fc8181; }
+    .na { background: #a0aec0; }
+
+    .quartile-item .label {
+      display: block;
+      font-size: 11px;
+    }
+
+    .quartile-item .count {
+      display: block;
+      font-size: 8px;
+      opacity: 0.9;
+      margin-top: 2px;
+    }
+
+    .settings-section {
+      margin-bottom: 20px;
+    }
+
+    .setting-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 0;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .setting-item:last-child {
+      border-bottom: none;
+    }
+
+    .setting-label {
+      font-size: 12px;
+      color: #4a5568;
+    }
+
+    .toggle {
+      position: relative;
+      width: 40px;
+      height: 20px;
+      background: #cbd5e0;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .toggle.active {
+      background: #48bb78;
+    }
+
+    .toggle::after {
+      content: '';
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: 16px;
+      height: 16px;
+      background: white;
+      border-radius: 50%;
+      transition: transform 0.2s;
+    }
+
+    .toggle.active::after {
+      transform: translateX(20px);
+    }
+
+    .actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .btn {
+      flex: 1;
+      padding: 8px 12px;
+      border: none;
+      border-radius: 4px;
+      font-size: 12px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-primary {
+      background: #3182ce;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: #2c5aa0;
+    }
+
+    .btn-secondary {
+      background: #e2e8f0;
+      color: #4a5568;
+    }
+
+    .btn-secondary:hover {
+      background: #cbd5e0;
+    }
+
+    .loading {
+      text-align: center;
+      padding: 20px;
+      color: #718096;
+      font-size: 12px;
+    }
+
+    .result {
+      background: #f7fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 4px;
+      padding: 8px;
+      margin-top: 8px;
+      font-size: 11px;
+    }
+
+    .result .journal-name {
+      font-weight: 600;
+      color: #2d3748;
+    }
+
+    .result .journal-details {
+      color: #718096;
+      margin-top: 4px;
+    }
+
+    .footer {
+      text-align: center;
+      padding: 12px;
+      background: #f7fafc;
+      border-top: 1px solid #e2e8f0;
+      font-size: 10px;
+      color: #a0aec0;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>SJR Journal Rankings</h1>
+    <p>SCImago Journal & Country Rank Integration</p>
+    <div class="author">By Dr. Mohammed Tawfik</div>
+  </div>
+
+  <div class="content">
+    <div class="search-section">
+      <div class="section-title">Journal Lookup</div>
+      <div class="search-box">
+        <input type="text" class="search-input" id="journalSearch" placeholder="Enter journal name...">
+      </div>
+      <button class="search-btn" id="searchBtn">Search</button>
+      <div id="searchResult"></div>
+    </div>
+
+    <div class="stats-section">
+      <div class="section-title">Current Page Statistics</div>
+      <div class="quartile-stats">
+        <div class="quartile-item q1">
+          <span class="label">Q1</span>
+          <span class="count" id="q1Count">0</span>
+        </div>
+        <div class="quartile-item q2">
+          <span class="label">Q2</span>
+          <span class="count" id="q2Count">0</span>
+        </div>
+        <div class="quartile-item q3">
+          <span class="label">Q3</span>
+          <span class="count" id="q3Count">0</span>
+        </div>
+        <div class="quartile-item q4">
+          <span class="label">Q4</span>
+          <span class="count" id="q4Count">0</span>
+        </div>
+        <div class="quartile-item na">
+          <span class="label">NA</span>
+          <span class="count" id="naCount">0</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="settings-section">
+      <div class="section-title">Settings</div>
+      <div class="setting-item">
+        <span class="setting-label">Show Quartile Badges</span>
+        <div class="toggle active" id="toggleQuartiles"></div>
+      </div>
+      <div class="setting-item">
+        <span class="setting-label">Show Statistics Box</span>
+        <div class="toggle active" id="toggleSJR"></div>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button class="btn btn-secondary" id="refreshBtn">Refresh</button>
+      <button class="btn btn-primary" id="updateBtn">Update</button>
+    </div>
+  </div>
+
+  <div class="footer">
+    Version 1.0.0 • kmkhol01@gmail.com
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
