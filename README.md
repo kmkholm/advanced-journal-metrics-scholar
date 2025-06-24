@@ -68,7 +68,7 @@ To publish this extension on the Chrome Web Store:
 
 2. **Submit to Chrome Web Store**
    - Visit [Chrome Web Store Developer Dashboard](https://chrome.google.com/webstore/devconsole/)
-   - Pay the $5 developer registration fee
+   
    - Upload the extension as a ZIP file
    - Fill out the store listing details
    - Submit for review
