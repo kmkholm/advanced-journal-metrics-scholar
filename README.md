@@ -42,36 +42,7 @@ A Chrome extension that **automatically downloads and uses REAL SCImago Journal 
        └── icon128.png
    ```
 
-3. **Convert SVG to PNG Icons**
-   - Use the provided SVG icon and convert it to PNG format in sizes: 16x16, 32x32, 48x48, and 128x128 pixels
-   - Save them in the `icons` folder with the specified names
 
-4. **Load Extension in Chrome**
-   - Open Chrome and go to `chrome://extensions/`
-   - Enable "Developer mode" (toggle in top-right corner)
-   - Click "Load unpacked"
-   - Select the `sjr-journal-rankings` folder
-   - The extension should now appear in your extensions list
-
-5. **Pin the Extension**
-   - Click the extensions icon (puzzle piece) in Chrome toolbar
-   - Pin the "SJR Journal Rankings" extension for easy access
-
-### Method 2: Chrome Web Store (For Distribution)
-
-To publish this extension on the Chrome Web Store:
-
-1. **Prepare for Submission**
-   - Ensure all files are properly organized
-   - Test thoroughly on different Google Scholar pages
-   - Create promotional images and screenshots
-
-2. **Submit to Chrome Web Store**
-   - Visit [Chrome Web Store Developer Dashboard](https://chrome.google.com/webstore/devconsole/)
-   
-   - Upload the extension as a ZIP file
-   - Fill out the store listing details
-   - Submit for review
 
 ## Usage
 
